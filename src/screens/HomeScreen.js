@@ -8,10 +8,9 @@ function HomeScreen({ navigation }) {
                 <Text style={styles.headerText}>Inicio</Text>
             </View>
 
-            {/* Ejemplo de tarjeta para los vehículos */}
             <View style={styles.card}>
                 <Image
-                    source={{ uri: 'https://example.com/jeep.jpg' }} // Reemplaza con tu imagen real
+                    source={require('../../assets/images/Cherokee05.jpg')}
                     style={styles.cardImage}
                 />
                 <View style={styles.cardContent}>
@@ -26,7 +25,7 @@ function HomeScreen({ navigation }) {
 
             <View style={styles.card}>
                 <Image
-                    source={{ uri: 'https://example.com/vw.jpg' }} // Reemplaza con tu imagen real
+                    source={require('../../assets/images/Jetta2015.jpeg')}
                     style={styles.cardImage}
                 />
                 <View style={styles.cardContent}>
@@ -39,7 +38,6 @@ function HomeScreen({ navigation }) {
                 </View>
             </View>
 
-            {/* Botones originales */}
             <View style={styles.buttonsContainer}>
                 <Button title='Go to details' onPress={() => navigation.navigate('Details')} />
                 <Button title='Go to settings' onPress={() => navigation.navigate('Settings')} />

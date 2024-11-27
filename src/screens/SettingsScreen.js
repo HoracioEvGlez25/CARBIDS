@@ -1,13 +1,16 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import NotificationPreferences from './NotificationPreferences';
+import LanguageOptions from './LanguageOptions';
+import SecurityPrivacy from './SecurityPrivacy';
+import PaymentMethods from './PaymentMethods';
+import SupportHelp from './SupportHelp';
+import AppCustomization from './AppCustomization';
 
 function SettingsScreen({ navigation }) {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <Text style={styles.backButton}>{'←'}</Text>
-                </TouchableOpacity>
             </View>
             <View style={styles.optionsContainer}>
                 <TouchableOpacity

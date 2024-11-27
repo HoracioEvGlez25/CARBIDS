@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, View, Text, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
+import { Button, View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from "react-native";
 
 function MisCarros({ navigation }) {
     const cars = [
@@ -8,31 +8,37 @@ function MisCarros({ navigation }) {
             title: "Jeep Grand Cherokee 2005",
             price: "$100,000",
             description: "Motor y transmisión en perfecto estado.",
+            image: "../../assets/images/Cherokee05.jpg", 
         },
         {
             id: 2,
             title: "Volkswagen Jetta 2003",
             price: "$80,000",
             description: "En excelentes condiciones, motor revisado.",
+            image: "../../assets/images/Jetta03.jpg", 
         },
         {
             id: 3,
             title: "Chevrolet Aveo 2010",
             price: "$70,000",
             description: "Ideal para primer auto, todo funcionando bien.",
+            image: "../../assets/images/aveo-2010.jpg", 
         },
     ];
 
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <Text style={styles.headerTitle}>Mis Carros</Text>
             </View>
             <ScrollView contentContainerStyle={styles.carsContainer}>
                 {cars.map((car) => (
                     <View key={car.id} style={styles.carCard}>
-                        {/* Espacio reservado para la imagen */}
-                        {/* <View style={styles.imagePlaceholder} /> */}
+                        {/* Componente Image para mostrar la imagen */}
+                        <Image
+                            source={{ uri: car.image }}
+                            style={styles.image}
+                            resizeMode="cover"
+                        />
                         <View style={styles.carDetails}>
                             <Text style={styles.carTitle}>{car.title}</Text>
                             <Text style={styles.carPrice}>{car.price}</Text>
@@ -86,9 +92,9 @@ const styles = StyleSheet.create({
         shadowRadius: 3,
         elevation: 3,
     },
-    imagePlaceholder: {
+    image: {
         height: 150,
-        backgroundColor: '#ddd',
+        width: '100%',
         borderRadius: 5,
         marginBottom: 10,
     },

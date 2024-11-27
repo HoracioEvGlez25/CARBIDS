@@ -31,7 +31,7 @@ const ProfileEs = () => {
                 <Text style={styles.carTitle}>Jetta 2003 estándar</Text>
                 <Text style={styles.carStatus}>Disponible</Text>
                 <Image
-                    source={{ uri: 'https://example.com/jetta.jpg' }} // Cambia esto por la ruta de la imagen real
+                    source={require('../../assets/images/Jetta03.jpg')}
                     style={styles.carImage}
                 />
             </View>
