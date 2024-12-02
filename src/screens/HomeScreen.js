@@ -2,41 +2,52 @@ import React from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity, ScrollView, Button } from 'react-native';
 
 function HomeScreen({ navigation }) {
+    // Lista de productos
+    const products = [
+        {
+            title: 'Jeep Grand Cherokee 2005',
+            price: '$100,000',
+            description: 'Motor y transmisión en perfecto estado',
+            image: require('../../assets/images/Cherokee05.jpg'),
+        },
+        {
+            title: 'Volkswagen Jetta 2015',
+            price: '$180,000',
+            description: 'Automático, único dueño',
+            image: require('../../assets/images/Jetta2015.jpeg'),
+        },
+    ];
+
     return (
         <ScrollView style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.headerText}>Inicio</Text>
             </View>
 
-            <View style={styles.card}>
-                <Image
-                    source={require('../../assets/images/Cherokee05.jpg')}
-                    style={styles.cardImage}
-                />
-                <View style={styles.cardContent}>
-                    <Text style={styles.cardTitle}>Jeep Grand Cherokee 2005</Text>
-                    <Text style={styles.cardPrice}>$100,000</Text>
-                    <Text style={styles.cardDescription}>Motor y transmisión en perfecto estado</Text>
-                    <TouchableOpacity style={styles.cardButton}>
-                        <Text style={styles.cardButtonText}>Ver</Text>
-                    </TouchableOpacity>
+            {/* Renderizar los productos dinámicamente */}
+            {products.map((product, index) => (
+                <View style={styles.card} key={index}>
+                    <Image source={product.image} style={styles.cardImage} />
+                    <View style={styles.cardContent}>
+                        <Text style={styles.cardTitle}>{product.title}</Text>
+                        <Text style={styles.cardPrice}>{product.price}</Text>
+                        <Text style={styles.cardDescription}>{product.description}</Text>
+                        <TouchableOpacity
+                            style={styles.cardButton}
+                            onPress={() =>
+                                navigation.navigate('Details', {
+                                    title: product.title,
+                                    price: product.price,
+                                    description: product.description,
+                                    image: product.image,
+                                })
+                            }
+                        >
+                            <Text style={styles.cardButtonText}>Ver</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-            </View>
-
-            <View style={styles.card}>
-                <Image
-                    source={require('../../assets/images/Jetta2015.jpeg')}
-                    style={styles.cardImage}
-                />
-                <View style={styles.cardContent}>
-                    <Text style={styles.cardTitle}>Volkswagen Jetta 2015</Text>
-                    <Text style={styles.cardPrice}>$180,000</Text>
-                    <Text style={styles.cardDescription}>Automático, único dueño</Text>
-                    <TouchableOpacity style={styles.cardButton}>
-                        <Text style={styles.cardButtonText}>Ver</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
+            ))}
 
             <View style={styles.buttonsContainer}>
                 <Button title='Go to details' onPress={() => navigation.navigate('Details')} />

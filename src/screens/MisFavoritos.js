@@ -8,18 +8,21 @@ function MisFavoritos({ navigation }) {
             title: "Jeep Grand Cherokee 2005",
             price: "$100,000",
             description: "Motor y transmisión en perfecto estado.",
+            image: "../../assets/images/Cherokee05.jpg", 
         },
         {
             id: 2,
             title: "Volkswagen Jetta 2003",
             price: "$80,000",
             description: "En excelentes condiciones, motor revisado.",
+            image: "../../assets/images/Jetta03.jpg", 
         },
         {
             id: 3,
             title: "Chevrolet Aveo 2010",
             price: "$70,000",
             description: "Ideal para primer auto, todo funcionando bien.",
+            image: "../../assets/images/aveo-2010.jpg", 
         },
     ];
 

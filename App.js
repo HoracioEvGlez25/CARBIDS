@@ -21,6 +21,7 @@ import SecurityPrivacy from "./src/screens/SecurityPrivacy";
 import PaymentMethods from "./src/screens/PaymentMethods";
 import SupportHelp from "./src/screens/SupportHelp";
 import AppCustomization from "./src/screens/AppCustomization";
+import DetailsScreen from "./src/screens/DetailsScreen";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -121,6 +122,7 @@ const SettingsStack = () => {
       <Stack.Screen name="PaymentMethods" component={PaymentMethods} />
       <Stack.Screen name="SupportHelp" component={SupportHelp} />
       <Stack.Screen name="AppCustomization" component={AppCustomization} />
+      <Stack.Screen name="Details" component={DetailsScreen} />
     </Stack.Navigator>
   );
 };
