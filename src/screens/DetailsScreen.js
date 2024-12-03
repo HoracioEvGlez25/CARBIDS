@@ -1,8 +1,26 @@
-import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, Image, StyleSheet, TouchableOpacity, Modal, TextInput, Button } from 'react-native';
 
 function DetailsScreen({ route, navigation }) {
     const { title, price, description, image } = route.params || {};
+
+    const [currentPrice, setCurrentPrice] = useState(price); // Estado para la oferta actual
+    const incrementAmount = 50000; // Cantidad a aumentar
+    const [isModalVisible, setModalVisible] = useState(false); // Estado del modal
+
+    // Función para incrementar el precio
+    const handleIncrement = () => {
+        setCurrentPrice(prevPrice => prevPrice + incrementAmount);
+    };
+
+    // Función para abrir y cerrar el modal
+    const handleMessagePress = () => {
+        setModalVisible(true);
+    };
+
+    const handleCloseModal = () => {
+        setModalVisible(false);
+    };
 
     if (!title || !price || !description || !image) {
         return <Text>Loading...</Text>; 
@@ -14,11 +32,12 @@ function DetailsScreen({ route, navigation }) {
 
             <View style={styles.detailsContainer}>
                 <Text style={styles.title}>{title}</Text>
-                <Text style={styles.price}>Precio actual: {price}</Text>
+                <Text style={styles.price}>Precio actual: ${currentPrice.toLocaleString()}</Text>
                 <Text style={styles.description}>{description}</Text>
 
                 <View style={styles.infoRow}>
-                    <TouchableOpacity style={styles.messageButton}>
+                    {/* Botón para abrir el mensaje */}
+                    <TouchableOpacity style={styles.messageButton} onPress={handleMessagePress}>
                         <Text style={styles.messageText}>Mensaje</Text>
                     </TouchableOpacity>
                     <View style={styles.timerContainer}>
@@ -28,11 +47,32 @@ function DetailsScreen({ route, navigation }) {
                 </View>
 
                 {/* Botón "Aumentar" */}
-                <Text style={styles.incrementLabel}>Cantidad a aumentar: $50,000</Text>
-                <TouchableOpacity style={styles.incrementButton}>
+                <Text style={styles.incrementLabel}>Cantidad a aumentar: ${incrementAmount.toLocaleString()}</Text>
+                <TouchableOpacity style={styles.incrementButton} onPress={handleIncrement}>
                     <Text style={styles.incrementButtonText}>Aumentar</Text>
                 </TouchableOpacity>
             </View>
+
+            {/* Modal para mostrar el mensaje */}
+            <Modal
+                visible={isModalVisible}
+                animationType="slide"
+                transparent={true}
+                onRequestClose={handleCloseModal}
+            >
+                <View style={styles.modalContainer}>
+                    <View style={styles.modalContent}>
+                        <Text style={styles.modalMessage}>
+                            El negociante no está disponible en este momento. En cuanto esté disponible, responderá su mensaje a la brevedad.
+                        </Text>
+                        <TextInput
+                            style={styles.textInput}
+                            placeholder="Escriba su mensaje aquí..."
+                        />
+                        <Button title="Cerrar" onPress={handleCloseModal} color="#007bff" />
+                    </View>
+                </View>
+            </Modal>
         </View>
     );
 }
@@ -106,6 +146,34 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 16,
         fontWeight: 'bold',
+    },
+    modalContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    modalContent: {
+        width: '80%',
+        backgroundColor: '#fff',
+        padding: 20,
+        borderRadius: 10,
+        alignItems: 'center',
+    },
+    modalMessage: {
+        fontSize: 16,
+        color: '#333',
+        marginBottom: 15,
+        textAlign: 'center',
+    },
+    textInput: {
+        width: '100%',
+        height: 40,
+        borderColor: '#ccc',
+        borderWidth: 1,
+        borderRadius: 5,
+        paddingHorizontal: 10,
+        marginBottom: 20,
     },
 });
 
