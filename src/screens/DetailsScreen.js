@@ -1,19 +1,17 @@
 import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, Modal, TextInput, Button } from 'react-native';
 
-function DetailsScreen({ route, navigation }) {
+function DetailsScreen({ route, navigation }) { 
     const { title, price, description, image } = route.params || {};
 
-    const [currentPrice, setCurrentPrice] = useState(price); // Estado para la oferta actual
-    const incrementAmount = 50000; // Cantidad a aumentar
-    const [isModalVisible, setModalVisible] = useState(false); // Estado del modal
+    const [currentPrice, setCurrentPrice] = useState(price);
+    const incrementAmount = 50000;
+    const [isModalVisible, setModalVisible] = useState(false);
 
-    // Función para incrementar el precio
     const handleIncrement = () => {
         setCurrentPrice(prevPrice => prevPrice + incrementAmount);
     };
 
-    // Función para abrir y cerrar el modal
     const handleMessagePress = () => {
         setModalVisible(true);
     };
@@ -23,7 +21,7 @@ function DetailsScreen({ route, navigation }) {
     };
 
     if (!title || !price || !description || !image) {
-        return <Text>Loading...</Text>; 
+        return <Text>Loading...</Text>;
     }
 
     return (
@@ -36,24 +34,23 @@ function DetailsScreen({ route, navigation }) {
                 <Text style={styles.description}>{description}</Text>
 
                 <View style={styles.infoRow}>
-                    {/* Botón para abrir el mensaje */}
                     <TouchableOpacity style={styles.messageButton} onPress={handleMessagePress}>
                         <Text style={styles.messageText}>Mensaje</Text>
                     </TouchableOpacity>
-                    <View style={styles.timerContainer}>
+
+                    <TouchableOpacity>
                         <Text style={styles.timerLabel}>Tiempo Restante</Text>
                         <Text style={styles.timer}>05:34 minutos</Text>
-                    </View>
+                        <Button title='Reunion' onPress={() => navigation.navigate('ReunionScreen')} />
+                    </TouchableOpacity>
                 </View>
 
-                {/* Botón "Aumentar" */}
                 <Text style={styles.incrementLabel}>Cantidad a aumentar: ${incrementAmount.toLocaleString()}</Text>
                 <TouchableOpacity style={styles.incrementButton} onPress={handleIncrement}>
                     <Text style={styles.incrementButtonText}>Aumentar</Text>
                 </TouchableOpacity>
             </View>
 
-            {/* Modal para mostrar el mensaje */}
             <Modal
                 visible={isModalVisible}
                 animationType="slide"
@@ -120,7 +117,10 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     timerContainer: {
-        alignItems: 'flex-end',
+        alignItems: 'center',
+        padding: 10,
+        backgroundColor: '#e3e3e3',
+        borderRadius: 5,
     },
     timerLabel: {
         fontSize: 14,

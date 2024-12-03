@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
+  ScrollView
 } from 'react-native';
 import { launchImageLibrary } from 'react-native-image-picker';
 
@@ -31,6 +32,7 @@ const SellCarScreen = () => {
   };
 
   return (
+    <ScrollView>
     <View style={styles.container}>
       <Text style={styles.title}>CARGAR IMAGENES</Text>
 
@@ -85,6 +87,7 @@ const SellCarScreen = () => {
         </TouchableOpacity>
       </View>
     </View>
+    </ScrollView>
   );
 };
 

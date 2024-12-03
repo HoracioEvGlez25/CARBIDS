@@ -22,6 +22,7 @@ import PaymentMethods from "./src/screens/PaymentMethods";
 import SupportHelp from "./src/screens/SupportHelp";
 import AppCustomization from "./src/screens/AppCustomization";
 import DetailsScreen from "./src/screens/DetailsScreen";
+import ReunionScreen from "./src/screens/ReunionScreen";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -123,6 +124,10 @@ const SettingsStack = () => {
       <Stack.Screen name="SupportHelp" component={SupportHelp} />
       <Stack.Screen name="AppCustomization" component={AppCustomization} />
       <Stack.Screen name="Details" component={DetailsScreen} />
+      <Stack.Screen
+        name="ReunionScreen" 
+        component={ReunionScreen}
+      />
     </Stack.Navigator>
   );
 };
@@ -145,6 +150,8 @@ const App = () => {
               {() => <Register setIsAuthenticated={setIsAuthenticated} />}
             </Stack.Screen>
             <Stack.Screen name="MainTab" component={MainTab} options={{ headerShown: false }} />
+            <Stack.Screen name="Details" component={DetailsScreen} />
+            <Stack.Screen name="Reunion" component={ReunionScreen} />
           </Stack.Navigator>
         </VStack>
       </NavigationContainer>
