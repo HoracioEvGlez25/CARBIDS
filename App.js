@@ -23,6 +23,7 @@ import SupportHelp from "./src/screens/SupportHelp";
 import AppCustomization from "./src/screens/AppCustomization";
 import DetailsScreen from "./src/screens/DetailsScreen";
 import ReunionScreen from "./src/screens/ReunionScreen";
+import SecurityFormScreen from "./src/screens/SecurityFormScreen";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -92,6 +93,15 @@ const MainTab = () => {
         options={{
           drawerIcon: ({ color, size }) => (
             <Ionicons name="card-outline" size={size} color={color} />
+          ),
+        }}
+      />
+       <Drawer.Screen
+        name="SecurityForm"
+        component={SecurityFormScreen}
+        options={{
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name="shield-checkmark-outline" size={size} color={color} />
           ),
         }}
       />
