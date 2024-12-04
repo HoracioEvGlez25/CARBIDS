@@ -1,8 +1,7 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity, ScrollView, Button } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
 
 function HomeScreen({ navigation }) {
-    // Lista de productos
     const products = [
         {
             title: 'Jeep Grand Cherokee 2005',
@@ -21,39 +20,33 @@ function HomeScreen({ navigation }) {
     return (
         <ScrollView style={styles.container}>
             <View style={styles.header}>
-                <Text style={styles.headerText}>Inicio</Text>
+                <Text style={styles.headerText}>Bienvenido a CARBIDS</Text>
             </View>
 
-            {/* Renderizar los productos dinámicamente */}
-            {products.map((product, index) => (
-                <View style={styles.card} key={index}>
-                    <Image source={product.image} style={styles.cardImage} />
-                    <View style={styles.cardContent}>
-                        <Text style={styles.cardTitle}>{product.title}</Text>
-                        <Text style={styles.cardPrice}>{product.price}</Text>
-                        <Text style={styles.cardDescription}>{product.description}</Text>
-                        <TouchableOpacity
-                            style={styles.cardButton}
-                            onPress={() =>
-                                navigation.navigate('Details', {
-                                    title: product.title,
-                                    price: product.price,
-                                    description: product.description,
-                                    image: product.image,
-                                })
-                            }
-                        >
-                            <Text style={styles.cardButtonText}>Ver</Text>
-                        </TouchableOpacity>
+            <View style={styles.productList}>
+                {products.map((product, index) => (
+                    <View style={styles.card} key={index}>
+                        <Image source={product.image} style={styles.cardImage} />
+                        <View style={styles.cardContent}>
+                            <Text style={styles.cardTitle}>{product.title}</Text>
+                            <Text style={styles.cardPrice}>{product.price}</Text>
+                            <Text style={styles.cardDescription}>{product.description}</Text>
+                            <TouchableOpacity
+                                style={styles.cardButton}
+                                onPress={() =>
+                                    navigation.navigate('Details', {
+                                        title: product.title,
+                                        price: product.price,
+                                        description: product.description,
+                                        image: product.image,
+                                    })
+                                }
+                            >
+                                <Text style={styles.cardButtonText}>Ver</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
-                </View>
-            ))}
-
-            <View style={styles.buttonsContainer}>
-                <Button title='Go to details' onPress={() => navigation.navigate('Details')} />
-                <Button title='Go to settings' onPress={() => navigation.navigate('Settings')} />
-                <Button title='Go to offers' onPress={() => navigation.navigate('Offers')} />
-                <Button title='Go to sell' onPress={() => navigation.navigate('Sell')} />
+                ))}
             </View>
         </ScrollView>
     );
@@ -68,60 +61,67 @@ const styles = StyleSheet.create({
         backgroundColor: '#007AFF',
         padding: 20,
         alignItems: 'center',
+        borderBottomLeftRadius: 15,
+        borderBottomRightRadius: 15,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 5,
     },
     headerText: {
         color: '#fff',
-        fontSize: 20,
+        fontSize: 24,
         fontWeight: 'bold',
+    },
+    productList: {
+        padding: 10,
     },
     card: {
         backgroundColor: '#fff',
-        margin: 10,
-        borderRadius: 10,
+        marginVertical: 10,
+        borderRadius: 15,
         overflow: 'hidden',
         shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.2,
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.1,
         shadowRadius: 4,
-        elevation: 3,
+        elevation: 4,
     },
     cardImage: {
         width: '100%',
         height: 200,
     },
     cardContent: {
-        padding: 10,
+        padding: 15,
     },
     cardTitle: {
         fontSize: 18,
         fontWeight: 'bold',
         color: '#333',
+        marginBottom: 5,
     },
     cardPrice: {
         fontSize: 16,
         fontWeight: 'bold',
         color: '#007AFF',
-        marginVertical: 5,
+        marginBottom: 10,
     },
     cardDescription: {
         fontSize: 14,
         color: '#666',
+        marginBottom: 15,
     },
     cardButton: {
         backgroundColor: '#28a745',
-        padding: 10,
-        borderRadius: 5,
+        paddingVertical: 10,
+        borderRadius: 8,
         alignItems: 'center',
-        marginTop: 10,
     },
     cardButtonText: {
         color: '#fff',
         fontSize: 16,
         fontWeight: 'bold',
-    },
-    buttonsContainer: {
-        padding: 20,
-        alignItems: 'center',
     },
 });
 

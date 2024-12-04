@@ -95,7 +95,6 @@ const MainTab = () => {
           ),
         }}
       />
-      {/* Ruta de Settings con Stack Navigator */}
       <Drawer.Screen
         name="Settings"
         component={SettingsStack}
@@ -124,10 +123,7 @@ const SettingsStack = () => {
       <Stack.Screen name="SupportHelp" component={SupportHelp} />
       <Stack.Screen name="AppCustomization" component={AppCustomization} />
       <Stack.Screen name="Details" component={DetailsScreen} />
-      <Stack.Screen
-        name="ReunionScreen" 
-        component={ReunionScreen}
-      />
+      <Stack.Screen name="ReunionScreen" component={ReunionScreen} />
     </Stack.Navigator>
   );
 };
@@ -151,7 +147,7 @@ const App = () => {
             </Stack.Screen>
             <Stack.Screen name="MainTab" component={MainTab} options={{ headerShown: false }} />
             <Stack.Screen name="Details" component={DetailsScreen} />
-            <Stack.Screen name="Reunion" component={ReunionScreen} />
+            <Stack.Screen name="ReunionScreen" component={ReunionScreen} />
           </Stack.Navigator>
         </VStack>
       </NavigationContainer>

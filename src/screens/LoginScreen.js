@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, TextInput, View, TouchableOpacity, Image, Alert } from 'react-native';
+import { StyleSheet, Text, TextInput, View, TouchableOpacity, Image, Alert, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 const LoginScreen = ({ setIsAuthenticated }) => {
@@ -17,92 +17,110 @@ const LoginScreen = ({ setIsAuthenticated }) => {
     };
 
     return (
-        <View style={styles.container}>
-            <View style={styles.header}>
-                <Text style={styles.headerText}>Iniciar Sesión</Text>
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
+            <View style={styles.container}>
+                <View style={styles.header}>
+                    <Text style={styles.headerText}>Bienvenido a CARBIDS</Text>
+                </View>
+                <View style={styles.logoContainer}>
+                    <Image source={require('../../assets/images/Carbidslogo.jpeg')} style={styles.logo} />
+                </View>
+                <View style={styles.formContainer}>
+                    <Text style={styles.title}>Inicia Sesión</Text>
+                    <TextInput
+                        placeholder="Correo Electrónico"
+                        keyboardType="email-address"
+                        value={email}
+                        onChangeText={setEmail}
+                        style={styles.input}
+                        placeholderTextColor="#aaa"
+                    />
+                    <TextInput
+                        placeholder="Contraseña"
+                        secureTextEntry
+                        value={password}
+                        onChangeText={setPassword}
+                        style={styles.input}
+                        placeholderTextColor="#aaa"
+                    />
+                    <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+                        <Text style={styles.loginButtonText}>Iniciar Sesión</Text>
+                    </TouchableOpacity>
+                    <View style={styles.linkContainer}>
+                        <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+                            <Text style={styles.linkText}>Crear una cuenta</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => navigation.navigate('Forgot')}>
+                            <Text style={styles.linkText}>¿Olvidaste tu contraseña?</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
             </View>
-            <View style={styles.logoContainer}>
-                <Image source={require('../../assets/images/Carbidslogo.jpeg')} style={styles.logo} />
-                <Text style={styles.logoText}>CARBIDS</Text>
-            </View>
-            <View style={styles.form}>
-                <TextInput
-                    placeholder="Correo Electrónico"
-                    keyboardType="email-address"
-                    value={email}
-                    onChangeText={setEmail}
-                    style={styles.input}
-                />
-                <TextInput
-                    placeholder="Contraseña"
-                    secureTextEntry
-                    value={password}
-                    onChangeText={setPassword}
-                    style={styles.input}
-                />
-                <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-                    <Text style={styles.loginButtonText}>Iniciar Sesión</Text>
-                </TouchableOpacity>
-            </View>
-            <View style={styles.linksContainer}>
-                <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-                    <Text style={styles.createAccountButton}>Crear Cuenta</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('Forgot')}>
-                    <Text style={styles.forgotPassword}>¿Olvidó su contraseña?</Text>
-                </TouchableOpacity>
-            </View>
-            <View style={styles.footer}></View>
-        </View>
+        </ScrollView>
     );
 };
 
 const styles = StyleSheet.create({
+    scrollContainer: {
+        flexGrow: 1,
+    },
     container: {
         flex: 1,
-        backgroundColor: '#f9f9f9',
+        backgroundColor: '#f8f9fd',
+        alignItems: 'center',
+        paddingVertical: 20,
     },
     header: {
-        backgroundColor: '#007AFF',
-        padding: 30,
+        backgroundColor: '#1e90ff',
+        width: '100%',
+        padding: 20,
         alignItems: 'center',
+        borderBottomLeftRadius: 15,
+        borderBottomRightRadius: 15,
     },
     headerText: {
         color: '#fff',
-        fontSize: 20,
+        fontSize: 22,
         fontWeight: 'bold',
     },
     logoContainer: {
-        marginTop: 20,
-        alignItems: 'center',
+        marginVertical: 30,
     },
     logo: {
         width: 150,
         height: 150,
-        marginBottom: 10,
+        resizeMode: 'contain',
     },
-    logoText: {
-        fontSize: 24,
+    formContainer: {
+        width: '90%',
+        backgroundColor: '#fff',
+        padding: 20,
+        borderRadius: 15,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.2,
+        shadowRadius: 4,
+        elevation: 5,
+    },
+    title: {
+        fontSize: 20,
         fontWeight: 'bold',
         color: '#333',
-    },
-    form: {
-        marginTop: 20,
-        paddingHorizontal: 20,
+        marginBottom: 15,
+        textAlign: 'center',
     },
     input: {
-        borderWidth: 1,
-        borderColor: '#ccc',
-        borderRadius: 5,
-        padding: 10,
-        marginBottom: 15,
+        backgroundColor: '#f0f4f8',
+        borderRadius: 10,
+        padding: 15,
         fontSize: 16,
-        backgroundColor: '#fff',
+        marginBottom: 15,
+        color: '#333',
     },
     loginButton: {
-        backgroundColor: '#FF0000',
+        backgroundColor: '#1e90ff',
         paddingVertical: 15,
-        borderRadius: 50,
+        borderRadius: 10,
         alignItems: 'center',
         marginBottom: 10,
     },
@@ -111,35 +129,16 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
     },
-    linksContainer: {
+    linkContainer: {
         alignItems: 'center',
         marginTop: 10,
     },
-    createAccountButton: {
-        color: '#fff',
-        fontSize: 16,
-        marginVertical: 10,
-        fontWeight: 'bold',
-        backgroundColor: '#FF0000',
-        borderRadius: 20,
-        paddingVertical: 5,
-        paddingHorizontal: 20,
-        textAlign: 'center',
-        alignSelf: 'center',
-    },
-    forgotPassword: {
-        color: '#007AFF',
-        fontSize: 16,
-        fontWeight: 'bold',
+    linkText: {
+        color: '#1e90ff',
+        fontSize: 14,
+        fontWeight: '600',
+        marginVertical: 5,
         textDecorationLine: 'underline',
-    },
-    footer: {
-        backgroundColor: '#007AFF',
-        height: 50,
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        right: 0,
     },
 });
 

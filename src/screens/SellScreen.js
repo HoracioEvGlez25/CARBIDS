@@ -6,7 +6,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
-  ScrollView
+  ScrollView,
+  Alert,
 } from 'react-native';
 import { launchImageLibrary } from 'react-native-image-picker';
 
@@ -25,92 +26,108 @@ const SellCarScreen = () => {
       } else if (response.errorMessage) {
         console.error('Error al seleccionar la imagen:', response.errorMessage);
       } else {
-        const uri = response.assets[0].uri; 
+        const uri = response.assets[0].uri;
         setImageUri(uri);
       }
     });
   };
 
   return (
-    <ScrollView>
-    <View style={styles.container}>
-      <Text style={styles.title}>CARGAR IMAGENES</Text>
+    <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <View style={styles.container}>
+        <Text style={styles.title}>Vender Tu Carro</Text>
 
-      <TouchableOpacity style={styles.importButton} onPress={handleImportImage}>
-        <Text style={styles.importButtonText}>IMPORTAR</Text>
-      </TouchableOpacity>
+        <TouchableOpacity style={styles.importButton} onPress={handleImportImage}>
+          <Text style={styles.importButtonText}>Subir Imagen</Text>
+        </TouchableOpacity>
 
-      {imageUri && (
-        <Image
-          source={{ uri: imageUri }}
-          style={styles.imagePreview}
-          resizeMode="contain"
-        />
-      )}
+        {imageUri && (
+          <Image
+            source={{ uri: imageUri }}
+            style={styles.imagePreview}
+            resizeMode="cover"
+          />
+        )}
 
-      <TextInput style={styles.input} placeholder="Precio inicial:" />
-      <TextInput style={styles.input} placeholder="Características" />
-      <TextInput style={styles.input} placeholder="Temas Legales" />
-      <TextInput style={styles.input} placeholder="VIN del carro" />
-
-      <View style={styles.inlineInputs}>
+        <TextInput style={styles.input} placeholder="Precio inicial" placeholderTextColor="#aaa" />
         <TextInput
-          style={[styles.input, styles.halfInput]}
-          placeholder="Zona aproximada"
+          style={styles.input}
+          placeholder="Características"
+          placeholderTextColor="#aaa"
+          multiline
         />
-        <TouchableOpacity style={styles.inlineButton}>
-          <Text style={styles.inlineButtonText}>Ubicar</Text>
-        </TouchableOpacity>
-      </View>
+        <TextInput style={styles.input} placeholder="Temas legales" placeholderTextColor="#aaa" />
+        <TextInput style={styles.input} placeholder="VIN del carro" placeholderTextColor="#aaa" />
 
-      <TextInput
-        style={styles.input}
-        placeholder="Especifique el método de pago"
-      />
+        <View style={styles.inlineInputs}>
+          <TextInput
+            style={[styles.input, styles.halfInput]}
+            placeholder="Zona aproximada"
+            placeholderTextColor="#aaa"
+          />
+          <TouchableOpacity style={styles.inlineButton}>
+            <Text style={styles.inlineButtonText}>Ubicar</Text>
+          </TouchableOpacity>
+        </View>
 
-      <View style={styles.inlineInputs}>
         <TextInput
-          style={[styles.input, styles.halfInput]}
-          placeholder="Asigne un tiempo de publicación"
+          style={styles.input}
+          placeholder="Método de pago"
+          placeholderTextColor="#aaa"
         />
-        <TouchableOpacity style={styles.inlineButton}>
-          <Text style={styles.inlineButtonText}>Asignar</Text>
-        </TouchableOpacity>
-      </View>
 
-      <View style={styles.actionButtons}>
-        <TouchableOpacity style={styles.deleteButton}>
-          <Text style={styles.deleteButtonText}>ELIMINAR</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.publishButton}>
-          <Text style={styles.publishButtonText}>PUBLICAR</Text>
-        </TouchableOpacity>
+        <View style={styles.inlineInputs}>
+          <TextInput
+            style={[styles.input, styles.halfInput]}
+            placeholder="Tiempo de publicación"
+            placeholderTextColor="#aaa"
+          />
+          <TouchableOpacity style={styles.inlineButton}>
+            <Text style={styles.inlineButtonText}>Asignar</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.actionButtons}>
+          <TouchableOpacity style={styles.deleteButton}>
+            <Text style={styles.deleteButtonText}>Eliminar</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.publishButton}>
+            <Text style={styles.publishButtonText}>Publicar</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  scrollContainer: {
+    flexGrow: 1,
+    backgroundColor: '#f8f9fa',
+  },
   container: {
     flex: 1,
     padding: 20,
     backgroundColor: '#ffffff',
   },
   title: {
-    fontSize: 18,
+    fontSize: 24,
     fontWeight: 'bold',
+    color: '#343a40',
     textAlign: 'center',
     marginBottom: 20,
   },
   importButton: {
-    backgroundColor: '#ccc',
-    padding: 10,
+    backgroundColor: '#007bff',
+    padding: 12,
+    borderRadius: 8,
     alignItems: 'center',
     marginBottom: 20,
   },
   importButtonText: {
+    color: '#ffffff',
     fontWeight: 'bold',
+    fontSize: 16,
   },
   imagePreview: {
     width: '100%',
@@ -118,14 +135,17 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: '#dee2e6',
   },
   input: {
+    backgroundColor: '#f8f9fa',
     borderWidth: 1,
-    borderColor: '#000',
-    padding: 10,
+    borderColor: '#ced4da',
+    borderRadius: 8,
+    padding: 12,
+    fontSize: 16,
     marginBottom: 15,
-    borderRadius: 5,
+    color: '#495057',
   },
   inlineInputs: {
     flexDirection: 'row',
@@ -137,9 +157,9 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   inlineButton: {
-    backgroundColor: '#000080',
-    padding: 10,
-    borderRadius: 5,
+    backgroundColor: '#28a745',
+    padding: 12,
+    borderRadius: 8,
   },
   inlineButtonText: {
     color: '#ffffff',
@@ -151,27 +171,29 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   deleteButton: {
-    backgroundColor: '#ff0000',
+    backgroundColor: '#dc3545',
     padding: 15,
-    borderRadius: 5,
+    borderRadius: 8,
     flex: 1,
     marginRight: 10,
+    alignItems: 'center',
   },
   deleteButtonText: {
     color: '#ffffff',
-    textAlign: 'center',
     fontWeight: 'bold',
+    fontSize: 16,
   },
   publishButton: {
-    backgroundColor: '#00ff00',
+    backgroundColor: '#007bff',
     padding: 15,
-    borderRadius: 5,
+    borderRadius: 8,
     flex: 1,
+    alignItems: 'center',
   },
   publishButtonText: {
     color: '#ffffff',
-    textAlign: 'center',
     fontWeight: 'bold',
+    fontSize: 16,
   },
 });
 

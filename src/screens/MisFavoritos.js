@@ -1,21 +1,21 @@
 import React from 'react';
-import { Button, View, Text, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
+import { Button, View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from "react-native";
 
 function MisFavoritos({ navigation }) {
     const favoriteCars = [
         {
             id: 1,
-            title: "Jeep Grand Cherokee 2005",
-            price: "$100,000",
+            title: "Mustang",
+            price: "$450,000",
             description: "Motor y transmisión en perfecto estado.",
-            image: "../../assets/images/Cherokee05.jpg", 
+            image: "../../assets/images/Mustang.jpg", 
         },
         {
             id: 2,
-            title: "Volkswagen Jetta 2003",
-            price: "$80,000",
+            title: "Audi A3",
+            price: "$356,000",
             description: "En excelentes condiciones, motor revisado.",
-            image: "../../assets/images/Jetta03.jpg", 
+            image: "../../assets/images/Audi.jpg", 
         },
         {
             id: 3,
@@ -28,21 +28,26 @@ function MisFavoritos({ navigation }) {
 
     return (
         <View style={styles.container}>
-            <View style={styles.header}>
-                <Text style={styles.headerTitle}>Mis Favoritos</Text>
-            </View>
             <ScrollView contentContainerStyle={styles.carsContainer}>
-                {favoriteCars.map((car) => (
-                    <View key={car.id} style={styles.carCard}>
-                        {/* Espacio reservado para la imagen */}
-                        {/* <View style={styles.imagePlaceholder} /> */}
+                {favoriteCars.map((product) => (
+                    <View key={product.id} style={styles.carCard}>
+                        <Image
+                            source={{ uri: product.image }}
+                            style={styles.image}
+                            resizeMode="cover"
+                        />
                         <View style={styles.carDetails}>
-                            <Text style={styles.carTitle}>{car.title}</Text>
-                            <Text style={styles.carPrice}>{car.price}</Text>
-                            <Text style={styles.carDescription}>{car.description}</Text>
+                            <Text style={styles.carTitle}>{product.title}</Text>
+                            <Text style={styles.carPrice}>{product.price}</Text>
+                            <Text style={styles.carDescription}>{product.description}</Text>
                             <TouchableOpacity
                                 style={styles.viewButton}
-                                onPress={() => navigation.navigate('Details', { carId: car.id })}
+                                onPress={() => navigation.navigate('Details', {
+                                    title: product.title,
+                                    price: product.price,
+                                    description: product.description,
+                                    image: product.image,
+                                })}
                             >
                                 <Text style={styles.viewButtonText}>Ver</Text>
                             </TouchableOpacity>
@@ -50,12 +55,6 @@ function MisFavoritos({ navigation }) {
                     </View>
                 ))}
             </ScrollView>
-            <View style={styles.navigationButtons}>
-                <Button title="Home" onPress={() => navigation.navigate('Home')} />
-                <Button title="Settings" onPress={() => navigation.navigate('Settings')} />
-                <Button title="Offers" onPress={() => navigation.navigate('Offers')} />
-                <Button title="Sell" onPress={() => navigation.navigate('Sell')} />
-            </View>
         </View>
     );
 }
@@ -129,6 +128,12 @@ const styles = StyleSheet.create({
         borderTopWidth: 1,
         borderTopColor: '#ccc',
         backgroundColor: '#fff',
+    },
+    image: {
+        height: 150,
+        width: '100%',
+        borderRadius: 5,
+        marginBottom: 10,
     },
 });
 

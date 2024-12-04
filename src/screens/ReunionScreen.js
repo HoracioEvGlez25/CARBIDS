@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Alert, ScrollView } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 const ReunionScreen = () => {
@@ -26,6 +26,7 @@ const ReunionScreen = () => {
   };
 
   return (
+    <ScrollView>
     <View style={styles.container}>
       <TextInput
         style={styles.input}
@@ -95,8 +96,11 @@ const ReunionScreen = () => {
         <Text style={styles.saveButtonText}>Guardar</Text>
       </TouchableOpacity>
     </View>
+    </ScrollView>
   );
 };
+
+export default ReunionScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -135,4 +139,3 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ReunionScreen;

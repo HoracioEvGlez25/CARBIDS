@@ -2,20 +2,20 @@ import React from 'react';
 import { Button, View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from "react-native";
 
 function MisCarros({ navigation }) {
-    const cars = [
+    const products = [
         {
             id: 1,
-            title: "Jeep Grand Cherokee 2005",
+            title: "Volkswagen Jetta 2003",
             price: "$100,000",
             description: "Motor y transmisión en perfecto estado.",
-            image: "../../assets/images/Cherokee05.jpg", 
+            image: "../../assets/images/Jetta03.jpg", 
         },
         {
             id: 2,
-            title: "Volkswagen Jetta 2003",
+            title: "Jeep Grand Cherokee 2005",
             price: "$80,000",
             description: "En excelentes condiciones, motor revisado.",
-            image: "../../assets/images/Jetta03.jpg", 
+            image: "../../assets/images/Cherokee05.jpg", 
         },
         {
             id: 3,
@@ -29,36 +29,39 @@ function MisCarros({ navigation }) {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-            </View>
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
+                        <Text style={styles.backButton}>{'← '}</Text>
+                    </TouchableOpacity>
+                </View>
             <ScrollView contentContainerStyle={styles.carsContainer}>
-                {cars.map((car) => (
-                    <View key={car.id} style={styles.carCard}>
-                        {/* Componente Image para mostrar la imagen */}
+                {products.map((product) => (
+                    <View key={product.id} style={styles.carCard}>
                         <Image
-                            source={{ uri: car.image }}
+                            source={{ uri: product.image }}
                             style={styles.image}
                             resizeMode="cover"
                         />
                         <View style={styles.carDetails}>
-                            <Text style={styles.carTitle}>{car.title}</Text>
-                            <Text style={styles.carPrice}>{car.price}</Text>
-                            <Text style={styles.carDescription}>{car.description}</Text>
+                            <Text style={styles.carTitle}>{product.title}</Text>
+                            <Text style={styles.carPrice}>{product.price}</Text>
+                            <Text style={styles.carDescription}>{product.description}</Text>
                             <TouchableOpacity
-                                style={styles.viewButton}
-                                onPress={() => navigation.navigate('Details', { carId: car.id })}
+                                style={styles.cardButton}
+                                onPress={() =>
+                                    navigation.navigate('Details', {
+                                        title: product.title,
+                                        price: product.price,
+                                        description: product.description,
+                                        image: product.image,
+                                    })
+                                }
                             >
-                                <Text style={styles.viewButtonText}>Ver</Text>
+                                <Text style={styles.cardButtonText}>Ver</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
                 ))}
             </ScrollView>
-            <View style={styles.navigationButtons}>
-                <Button title="Home" onPress={() => navigation.navigate('Home')} />
-                <Button title="Settings" onPress={() => navigation.navigate('Settings')} />
-                <Button title="Offers" onPress={() => navigation.navigate('Offers')} />
-                <Button title="Sell" onPress={() => navigation.navigate('Sell')} />
-            </View>
         </View>
     );
 }
@@ -132,6 +135,18 @@ const styles = StyleSheet.create({
         borderTopWidth: 1,
         borderTopColor: '#ccc',
         backgroundColor: '#fff',
+    },
+    cardButton: {
+        backgroundColor: '#28a745',
+        padding: 10,
+        borderRadius: 5,
+        alignItems: 'center',
+        marginTop: 10,
+    },
+    cardButtonText: {
+        color: '#fff',
+        fontSize: 16,
+        fontWeight: 'bold',
     },
 });
 

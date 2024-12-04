@@ -19,7 +19,7 @@ function ChatScreen({ route, navigation }) {
                 sender: 'comprador',
             };
             setMessages([...messages, newMessage]);
-            setMessage(''); // Limpiar el campo de entrada
+            setMessage(''); 
         }
     };
 

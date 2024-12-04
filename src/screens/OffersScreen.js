@@ -1,25 +1,28 @@
 import React from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, ScrollView, Button } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, ScrollView, Image } from "react-native";
 
 function OffersScreen({ navigation }) {
-    const offers = [
+    const products = [
         {
             id: 1,
-            title: "Producto 1",
-            price: "$10,000",
-            description: "Descripción breve del producto 1.",
+            title: "Dodge Stratus 2005",
+            price: "$40,000",
+            description: "Carro en perfectas condiciones, solo le falta una pintadaxdd.",
+            image: '../../assets/images/DodgeStratus.jpg',
         },
         {
             id: 2,
-            title: "Producto 2",
-            price: "$15,000",
-            description: "Descripción breve del producto 2.",
+            title: "Tsuru Tuneado",
+            price: "$25,000",
+            description: "Perfecto pa conquistar chiquillas :))",
+            image: '../../assets/images/TusruTuneado.jpg',
         },
         {
             id: 3,
-            title: "Producto 3",
-            price: "$20,000",
-            description: "Descripción breve del producto 3.",
+            title: "Ford Fiesta",
+            price: "$38,000",
+            description: "Carro bastante comodo y util para moverse por la ciudad",
+            image: '../../assets/images/FordFiesta.jpg',
         },
     ];
 
@@ -29,29 +32,34 @@ function OffersScreen({ navigation }) {
                 <Text style={styles.headerTitle}>Ofertas</Text>
             </View>
             <ScrollView contentContainerStyle={styles.offersContainer}>
-                {offers.map((offer) => (
-                    <View key={offer.id} style={styles.offerCard}>
-                        {/* Espacio reservado para la imagen */}
-                        {/* <View style={styles.imagePlaceholder} /> */}
+                {products.map((product) => (
+                    <View key={product.id} style={styles.offerCard}>
+                        <Image
+                            source={{ uri: product.image }}
+                            style={styles.image}
+                            resizeMode="cover"
+                        />
                         <View style={styles.offerDetails}>
-                            <Text style={styles.offerTitle}>{offer.title}</Text>
-                            <Text style={styles.offerPrice}>{offer.price}</Text>
-                            <Text style={styles.offerDescription}>{offer.description}</Text>
+                            <Text style={styles.offerTitle}>{product.title}</Text>
+                            <Text style={styles.offerPrice}>{product.price}</Text>
+                            <Text style={styles.offerDescription}>{product.description}</Text>
                             <TouchableOpacity
-                                style={styles.viewButton}
-                                onPress={() => navigation.navigate('Details', { offerId: offer.id })}
+                                style={styles.cardButton}
+                                onPress={() =>
+                                    navigation.navigate('Details', {
+                                        title: product.title,
+                                        price: product.price,
+                                        description: product.description,
+                                        image: product.image,
+                                    })
+                                }
                             >
-                                <Text style={styles.viewButtonText}>Ver</Text>
+                                <Text style={styles.cardButtonText}>Detalles</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
                 ))}
             </ScrollView>
-            <View style={styles.navigationButtons}>
-                <Button title="Home" onPress={() => navigation.navigate('Home')} />
-                <Button title="Settings" onPress={() => navigation.navigate('Settings')} />
-                <Button title="Sell" onPress={() => navigation.navigate('Sell')} />
-            </View>
         </View>
     );
 }
@@ -59,73 +67,83 @@ function OffersScreen({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#f9f9f9',
+        backgroundColor: '#f2f2f2',
     },
     header: {
-        backgroundColor: '#007AFF',
-        padding: 15,
+        backgroundColor: '#ff5722',
+        paddingVertical: 20,
+        paddingHorizontal: 15,
         alignItems: 'center',
+        borderBottomLeftRadius: 20,
+        borderBottomRightRadius: 20,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.2,
+        shadowRadius: 5,
+        elevation: 5,
     },
     headerTitle: {
         color: '#fff',
-        fontSize: 18,
+        fontSize: 22,
         fontWeight: 'bold',
     },
     offersContainer: {
-        padding: 10,
+        padding: 15,
     },
     offerCard: {
         backgroundColor: '#fff',
-        borderRadius: 8,
-        marginBottom: 15,
-        padding: 10,
+        borderRadius: 15,
+        marginBottom: 20,
+        padding: 15,
         shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
+        shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.1,
-        shadowRadius: 3,
-        elevation: 3,
+        shadowRadius: 5,
+        elevation: 6,
     },
-    imagePlaceholder: {
-        height: 150,
-        backgroundColor: '#ddd',
-        borderRadius: 5,
-        marginBottom: 10,
+    image: {
+        height: 180,
+        width: '100%',
+        borderRadius: 10,
+        marginBottom: 15,
     },
     offerDetails: {
-        padding: 10,
+        paddingHorizontal: 10,
     },
     offerTitle: {
-        fontSize: 16,
+        fontSize: 18,
         fontWeight: 'bold',
-        color: '#333',
+        color: '#212121',
     },
     offerPrice: {
-        fontSize: 14,
-        color: '#007AFF',
-        marginVertical: 5,
+        fontSize: 16,
+        color: '#ff5722',
+        marginVertical: 8,
+        fontWeight: '600',
     },
     offerDescription: {
-        fontSize: 12,
-        color: '#666',
-    },
-    viewButton: {
-        backgroundColor: '#28a745',
-        borderRadius: 5,
-        paddingVertical: 10,
-        alignItems: 'center',
-        marginTop: 10,
-    },
-    viewButtonText: {
-        color: '#fff',
         fontSize: 14,
+        color: '#757575',
+        marginBottom: 15,
+        lineHeight: 20,
+    },
+    cardButton: {
+        backgroundColor: '#ff5722',
+        padding: 12,
+        borderRadius: 8,
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.15,
+        shadowRadius: 4,
+        elevation: 4,
+    },
+    cardButtonText: {
+        color: '#fff',
+        fontSize: 16,
         fontWeight: 'bold',
     },
-    navigationButtons: {
-        padding: 10,
-        borderTopWidth: 1,
-        borderTopColor: '#ccc',
-        backgroundColor: '#fff',
-    },
 });
+
 
 export default OffersScreen;

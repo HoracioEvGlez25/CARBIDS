@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity, Modal, TextInput, Button } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, Modal, TextInput, Button, ScrollView } from 'react-native';
 
 function DetailsScreen({ route, navigation }) { 
     const { title, price, description, image } = route.params || {};
@@ -25,156 +25,192 @@ function DetailsScreen({ route, navigation }) {
     }
 
     return (
-        <View style={styles.container}>
-            <Image source={image} style={styles.image} />
+        <ScrollView style={{ backgroundColor: '#f0f4f8' }}>
+            <View style={{ flex: 1, padding: 20 }}>
+                <Image
+                    source={image}
+                    style={{
+                        width: '100%',
+                        height: 250,
+                        borderRadius: 15,
+                        marginBottom: 20,
+                        shadowColor: '#000',
+                        shadowOffset: { width: 0, height: 4 },
+                        shadowOpacity: 0.3,
+                        shadowRadius: 5,
+                    }}
+                />
 
-            <View style={styles.detailsContainer}>
-                <Text style={styles.title}>{title}</Text>
-                <Text style={styles.price}>Precio actual: ${currentPrice.toLocaleString()}</Text>
-                <Text style={styles.description}>{description}</Text>
+                <View
+                    style={{
+                        backgroundColor: 'white',
+                        borderRadius: 15,
+                        padding: 20,
+                        shadowColor: '#000',
+                        shadowOffset: { width: 0, height: 4 },
+                        shadowOpacity: 0.2,
+                        shadowRadius: 5,
+                        marginBottom: 20,
+                    }}
+                >
+                    <Text
+                        style={{
+                            fontSize: 26,
+                            fontWeight: 'bold',
+                            color: '#333',
+                            marginBottom: 10,
+                        }}
+                    >
+                        {title}
+                    </Text>
+                    <Text
+                        style={{
+                            fontSize: 22,
+                            fontWeight: '600',
+                            color: '#007bff',
+                            marginBottom: 15,
+                        }}
+                    >
+                        Precio actual: ${currentPrice.toLocaleString()}
+                    </Text>
+                    <Text
+                        style={{
+                            fontSize: 16,
+                            lineHeight: 24,
+                            color: '#555',
+                            marginBottom: 20,
+                        }}
+                    >
+                        {description}
+                    </Text>
 
-                <View style={styles.infoRow}>
-                    <TouchableOpacity style={styles.messageButton} onPress={handleMessagePress}>
-                        <Text style={styles.messageText}>Mensaje</Text>
-                    </TouchableOpacity>
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                            marginBottom: 20,
+                        }}
+                    >
+                        <TouchableOpacity
+                            style={{
+                                backgroundColor: '#007bff',
+                                paddingVertical: 10,
+                                paddingHorizontal: 15,
+                                borderRadius: 10,
+                            }}
+                            onPress={handleMessagePress}
+                        >
+                            <Text style={{ color: '#fff', fontSize: 16, fontWeight: '500' }}>Mensaje</Text>
+                        </TouchableOpacity>
 
-                    <TouchableOpacity>
-                        <Text style={styles.timerLabel}>Tiempo Restante</Text>
-                        <Text style={styles.timer}>05:34 minutos</Text>
-                        <Button title='Reunion' onPress={() => navigation.navigate('ReunionScreen')} />
-                    </TouchableOpacity>
-                </View>
-
-                <Text style={styles.incrementLabel}>Cantidad a aumentar: ${incrementAmount.toLocaleString()}</Text>
-                <TouchableOpacity style={styles.incrementButton} onPress={handleIncrement}>
-                    <Text style={styles.incrementButtonText}>Aumentar</Text>
-                </TouchableOpacity>
-            </View>
-
-            <Modal
-                visible={isModalVisible}
-                animationType="slide"
-                transparent={true}
-                onRequestClose={handleCloseModal}
-            >
-                <View style={styles.modalContainer}>
-                    <View style={styles.modalContent}>
-                        <Text style={styles.modalMessage}>
-                            El negociante no está disponible en este momento. En cuanto esté disponible, responderá su mensaje a la brevedad.
-                        </Text>
-                        <TextInput
-                            style={styles.textInput}
-                            placeholder="Escriba su mensaje aquí..."
-                        />
-                        <Button title="Cerrar" onPress={handleCloseModal} color="#007bff" />
+                        <TouchableOpacity>
+                            <View
+                                style={{
+                                    alignItems: 'center',
+                                    paddingVertical: 10,
+                                    paddingHorizontal: 15,
+                                    backgroundColor: '#e0f0ff',
+                                    borderRadius: 10,
+                                }}
+                            >
+                                <Text style={{ fontSize: 14, color: '#007bff' }}>Tiempo Restante</Text>
+                                <Text
+                                    style={{
+                                        fontSize: 18,
+                                        fontWeight: 'bold',
+                                        color: '#333',
+                                    }}
+                                >
+                                    05:34 minutos
+                                </Text>
+                            </View>
+                            <Button title='Reunion' onPress={() => navigation.navigate('ReunionScreen')} />
+                        </TouchableOpacity>
                     </View>
+
+                    <Text
+                        style={{
+                            fontSize: 18,
+                            color: '#333',
+                            marginBottom: 10,
+                        }}
+                    >
+                        Cantidad a aumentar: ${incrementAmount.toLocaleString()}
+                    </Text>
+                    <TouchableOpacity
+                        style={{
+                            backgroundColor: '#28a745',
+                            paddingVertical: 15,
+                            borderRadius: 10,
+                            alignItems: 'center',
+                            shadowColor: '#000',
+                            shadowOffset: { width: 0, height: 3 },
+                            shadowOpacity: 0.2,
+                            shadowRadius: 5,
+                        }}
+                        onPress={handleIncrement}
+                    >
+                        <Text style={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }}>Aumentar</Text>
+                    </TouchableOpacity>
                 </View>
-            </Modal>
-        </View>
+
+                <Modal
+                    visible={isModalVisible}
+                    animationType="fade"
+                    transparent={true}
+                    onRequestClose={handleCloseModal}
+                >
+                    <View
+                        style={{
+                            flex: 1,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            backgroundColor: 'rgba(0, 0, 0, 0.6)',
+                        }}
+                    >
+                        <View
+                            style={{
+                                width: '85%',
+                                backgroundColor: '#fff',
+                                padding: 20,
+                                borderRadius: 20,
+                                shadowColor: '#000',
+                                shadowOffset: { width: 0, height: 4 },
+                                shadowOpacity: 0.4,
+                                shadowRadius: 5,
+                            }}
+                        >
+                            <Text
+                                style={{
+                                    fontSize: 16,
+                                    fontWeight: '500',
+                                    color: '#555',
+                                    marginBottom: 15,
+                                    textAlign: 'center',
+                                }}
+                            >
+                                El negociante no está disponible en este momento. En cuanto esté disponible,
+                                responderá su mensaje a la brevedad.
+                            </Text>
+                            <TextInput
+                                style={{
+                                    width: '100%',
+                                    height: 50,
+                                    borderColor: '#ccc',
+                                    borderWidth: 1,
+                                    borderRadius: 10,
+                                    paddingHorizontal: 15,
+                                    marginBottom: 20,
+                                }}
+                                placeholder="Escriba su mensaje aquí..."
+                            />
+                            <Button title="Cerrar" onPress={handleCloseModal} color="#007bff" />
+                        </View>
+                    </View>
+                </Modal>
+            </View>
+        </ScrollView>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#f4f4f4',
-    },
-    image: {
-        width: '100%',
-        height: 200,
-    },
-    detailsContainer: {
-        padding: 20,
-    },
-    title: {
-        fontSize: 22,
-        fontWeight: 'bold',
-        marginBottom: 10,
-    },
-    price: {
-        fontSize: 18,
-        color: '#000',
-        marginBottom: 10,
-    },
-    description: {
-        fontSize: 16,
-        color: '#666',
-        marginBottom: 20,
-    },
-    infoRow: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginBottom: 20,
-    },
-    messageButton: {
-        backgroundColor: '#007bff',
-        padding: 10,
-        borderRadius: 5,
-    },
-    messageText: {
-        color: '#fff',
-        fontSize: 16,
-    },
-    timerContainer: {
-        alignItems: 'center',
-        padding: 10,
-        backgroundColor: '#e3e3e3',
-        borderRadius: 5,
-    },
-    timerLabel: {
-        fontSize: 14,
-        color: '#666',
-    },
-    timer: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        color: '#333',
-    },
-    incrementLabel: {
-        fontSize: 16,
-        color: '#000',
-        marginBottom: 10,
-    },
-    incrementButton: {
-        backgroundColor: '#28a745',
-        padding: 15,
-        borderRadius: 5,
-        alignItems: 'center',
-    },
-    incrementButtonText: {
-        color: '#fff',
-        fontSize: 16,
-        fontWeight: 'bold',
-    },
-    modalContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    },
-    modalContent: {
-        width: '80%',
-        backgroundColor: '#fff',
-        padding: 20,
-        borderRadius: 10,
-        alignItems: 'center',
-    },
-    modalMessage: {
-        fontSize: 16,
-        color: '#333',
-        marginBottom: 15,
-        textAlign: 'center',
-    },
-    textInput: {
-        width: '100%',
-        height: 40,
-        borderColor: '#ccc',
-        borderWidth: 1,
-        borderRadius: 5,
-        paddingHorizontal: 10,
-        marginBottom: 20,
-    },
-});
 
 export default DetailsScreen;
