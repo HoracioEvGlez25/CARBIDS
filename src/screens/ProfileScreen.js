@@ -31,26 +31,6 @@ const ProfileEs = () => {
                         Entusiasta de los autos y las motocicletas. Me gusta viajar y descubrir nuevos lugares.
                     </Text>
                 </View>
-
-                <View style={styles.statsSection}>
-                    <View style={styles.statCard}>
-                        <Text style={styles.statNumber}>5</Text>
-                        <Text style={styles.statLabel}>Autos Vendidos</Text>
-                    </View>
-                    <View style={styles.statCard}>
-                        <Text style={styles.statNumber}>12</Text>
-                        <Text style={styles.statLabel}>Autos en Venta</Text>
-                    </View>
-                </View>
-
-                <View style={styles.card}>
-                    <Text style={styles.carTitle}>Jetta 2003 estándar</Text>
-                    <Text style={styles.carStatus}>Disponible</Text>
-                    <Image
-                        source={require('../../assets/images/Jetta03.jpg')}
-                        style={styles.carImage}
-                    />
-                </View>
             </View>
         </ScrollView>
     );

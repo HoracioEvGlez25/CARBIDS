@@ -11,7 +11,6 @@ import LoginScreen from "./src/screens/LoginScreen";
 import RegisterScreen from "./src/screens/RegisterScreen";
 import ProfileScreen from "./src/screens/ProfileScreen";
 import SettingsScreen from "./src/screens/SettingsScreen";
-import OffersScreen from "./src/screens/OffersScreen";
 import SellScreen from "./src/screens/SellScreen";
 import MisCarros from "./src/screens/MisCarros";
 import MisFavoritos from "./src/screens/MisFavoritos";
@@ -25,7 +24,7 @@ import DetailsScreen from "./src/screens/DetailsScreen";
 import ReunionScreen from "./src/screens/ReunionScreen";
 import SecurityFormScreen from "./src/screens/SecurityFormScreen";
 import Meetings from "./src/screens/Meetings";
-import { AppProvider } from "./src/contexts/favoritosContext";  // Ajusta la ruta aquí
+import { AppProvider } from "./contexts/favoritosContext";  
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -64,8 +63,17 @@ const MainTab = ({ setIsAuthenticated }) => {
           ),
         }}
       />
+            <Drawer.Screen
+        name="Divider1"
+        component={() => null}
+        options={{
+          drawerLabel: () => null,
+          drawerIcon: () => null,
+          drawerItemStyle: { marginVertical: 0, height: 1, backgroundColor: '#ccc' },
+        }}
+      />
       <Drawer.Screen
-        name="Profile"
+        name="Perfil"
         component={ProfileScreen}
         options={{
           drawerIcon: ({ color, size }) => (
@@ -92,16 +100,25 @@ const MainTab = ({ setIsAuthenticated }) => {
         }}
       />
       <Drawer.Screen
-        name="Offers"
-        component={OffersScreen}
+        name="Reuniones"
+        component={Meetings}
         options={{
           drawerIcon: ({ color, size }) => (
-            <Ionicons name="pricetag-outline" size={size} color={color} />
+            <Ionicons name="people-outline" size={size} color={color} />
           ),
         }}
       />
       <Drawer.Screen
-        name="Sell"
+        name="Divider2"
+        component={() => null}
+        options={{
+          drawerLabel: () => null,
+          drawerIcon: () => null,
+          drawerItemStyle: { marginVertical: 0, height: 1, backgroundColor: '#ccc' },
+        }}
+      />
+      <Drawer.Screen
+        name="Vender"
         component={SellScreen}
         options={{
           drawerIcon: ({ color, size }) => (
@@ -123,7 +140,7 @@ const MainTab = ({ setIsAuthenticated }) => {
         }}
       />
       <Drawer.Screen
-        name="Settings"
+        name="Configuraciones"
         component={SettingsStack}
         options={{
           drawerIcon: ({ color, size }) => (

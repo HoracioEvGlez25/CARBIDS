@@ -10,8 +10,6 @@ import AppCustomization from './AppCustomization';
 function SettingsScreen({ navigation }) {
     return (
         <View style={styles.container}>
-            <View style={styles.header}>
-            </View>
             <View style={styles.optionsContainer}>
                 <TouchableOpacity
                     style={styles.option}
