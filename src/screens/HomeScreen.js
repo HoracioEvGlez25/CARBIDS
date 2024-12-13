@@ -5,13 +5,13 @@ function HomeScreen({ navigation }) {
     const products = [
         {
             title: 'Jeep Grand Cherokee 2005',
-            price: '$100,000',
+            price: 100000, // El precio ahora es un número
             description: 'Motor y transmisión en perfecto estado',
             image: require('../../assets/images/Cherokee05.jpg'),
         },
         {
             title: 'Volkswagen Jetta 2015',
-            price: '$180,000',
+            price: 180000, // El precio ahora es un número
             description: 'Automático, único dueño',
             image: require('../../assets/images/Jetta2015.jpeg'),
         },
@@ -23,20 +23,20 @@ function HomeScreen({ navigation }) {
                 <Text style={styles.headerText}>Bienvenido a CARBIDS</Text>
             </View>
 
-            <View style={styles.productList}>
+            <View style={styles.productList}> 
                 {products.map((product, index) => (
                     <View style={styles.card} key={index}>
                         <Image source={product.image} style={styles.cardImage} />
                         <View style={styles.cardContent}>
                             <Text style={styles.cardTitle}>{product.title}</Text>
-                            <Text style={styles.cardPrice}>{product.price}</Text>
+                            <Text style={styles.cardPrice}>${product.price.toLocaleString()}</Text>
                             <Text style={styles.cardDescription}>{product.description}</Text>
                             <TouchableOpacity
                                 style={styles.cardButton}
                                 onPress={() =>
                                     navigation.navigate('Details', {
                                         title: product.title,
-                                        price: product.price,
+                                        price: product.price, // Pasamos el precio como número
                                         description: product.description,
                                         image: product.image,
                                     })

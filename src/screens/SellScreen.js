@@ -49,42 +49,22 @@ const SellCarScreen = () => {
           />
         )}
 
-        <TextInput style={styles.input} placeholder="Precio inicial" placeholderTextColor="#aaa" />
+        <TextInput style={styles.input} placeholder="Marca del vehículo" placeholderTextColor="#aaa" />
         <TextInput
           style={styles.input}
           placeholder="Características"
           placeholderTextColor="#aaa"
           multiline
         />
-        <TextInput style={styles.input} placeholder="Temas legales" placeholderTextColor="#aaa" />
+        <TextInput style={styles.input} placeholder="Modelo" placeholderTextColor="#aaa" />
         <TextInput style={styles.input} placeholder="VIN del carro" placeholderTextColor="#aaa" />
 
         <View style={styles.inlineInputs}>
           <TextInput
             style={[styles.input, styles.halfInput]}
-            placeholder="Zona aproximada"
+            placeholder="Precio inicial"
             placeholderTextColor="#aaa"
           />
-          <TouchableOpacity style={styles.inlineButton}>
-            <Text style={styles.inlineButtonText}>Ubicar</Text>
-          </TouchableOpacity>
-        </View>
-
-        <TextInput
-          style={styles.input}
-          placeholder="Método de pago"
-          placeholderTextColor="#aaa"
-        />
-
-        <View style={styles.inlineInputs}>
-          <TextInput
-            style={[styles.input, styles.halfInput]}
-            placeholder="Tiempo de publicación"
-            placeholderTextColor="#aaa"
-          />
-          <TouchableOpacity style={styles.inlineButton}>
-            <Text style={styles.inlineButtonText}>Asignar</Text>
-          </TouchableOpacity>
         </View>
 
         <View style={styles.actionButtons}>

@@ -7,8 +7,8 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import theme from "./theme";
 import ToggleDarkMode from "./TogleDarkMode";
 import HomeScreen from "./src/screens/HomeScreen";
-import Login from "./src/screens/LoginScreen";
-import Register from "./src/screens/RegisterScreen";
+import LoginScreen from "./src/screens/LoginScreen";
+import RegisterScreen from "./src/screens/RegisterScreen";
 import ProfileScreen from "./src/screens/ProfileScreen";
 import SettingsScreen from "./src/screens/SettingsScreen";
 import OffersScreen from "./src/screens/OffersScreen";
@@ -134,6 +134,7 @@ const SettingsStack = () => {
       <Stack.Screen name="AppCustomization" component={AppCustomization} />
       <Stack.Screen name="Details" component={DetailsScreen} />
       <Stack.Screen name="ReunionScreen" component={ReunionScreen} />
+      {/* <Stack.Screen name="RegisterScreen" component={RegisterScreen} /> */}
     </Stack.Navigator>
   );
 };
@@ -149,11 +150,11 @@ const App = () => {
             <ToggleDarkMode />
           </Box>
           <Stack.Navigator initialRouteName={isAuthenticated ? "MainTab" : "Login"}>
-            <Stack.Screen name="Login" options={{ headerShown: false }}>
-              {() => <Login setIsAuthenticated={setIsAuthenticated} />}
+            <Stack.Screen name="LoginScreen" options={{ headerShown: false }}>
+              {() => <LoginScreen setIsAuthenticated={setIsAuthenticated} />}
             </Stack.Screen>
-            <Stack.Screen name="Register" options={{ headerShown: false }}>
-              {() => <Register setIsAuthenticated={setIsAuthenticated} />}
+            <Stack.Screen name="RegisterScreen" options={{ headerShown: false }}>
+              {() => <RegisterScreen setIsAuthenticated={setIsAuthenticated} />}
             </Stack.Screen>
             <Stack.Screen name="MainTab" component={MainTab} options={{ headerShown: false }} />
             <Stack.Screen name="Details" component={DetailsScreen} />

@@ -60,18 +60,6 @@ const ReunionScreen = () => {
       />
       <TextInput
         style={styles.input}
-        placeholder="Medio de transporte a la zona"
-        value={transporte}
-        onChangeText={setTransporte}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Características del transporte"
-        value={caracteristicas}
-        onChangeText={setCaracteristicas}
-      />
-      <TextInput
-        style={styles.input}
         placeholder="Número de emergencia"
         keyboardType="numeric"
         value={emergencia}
@@ -79,7 +67,7 @@ const ReunionScreen = () => {
       />
 
       <TouchableOpacity style={styles.assignButton} onPress={() => setShowPicker(true)}>
-        <Text style={styles.assignButtonText}>Asignar Hora de recordatorio de emergencia</Text>
+        <Text style={styles.assignButtonText}>Asignar hora de reunión</Text>
       </TouchableOpacity>
 
       {showPicker && (

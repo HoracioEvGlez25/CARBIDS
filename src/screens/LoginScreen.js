@@ -47,9 +47,9 @@ const LoginScreen = ({ setIsAuthenticated }) => {
                         <Text style={styles.loginButtonText}>Iniciar Sesión</Text>
                     </TouchableOpacity>
                     <View style={styles.linkContainer}>
-                        <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-                            <Text style={styles.linkText}>Crear una cuenta</Text>
-                        </TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate('RegisterScreen')}>
+                       <Text style={styles.linkText}>Crear una cuenta</Text>
+                    </TouchableOpacity>
                         <TouchableOpacity onPress={() => navigation.navigate('Forgot')}>
                             <Text style={styles.linkText}>¿Olvidaste tu contraseña?</Text>
                         </TouchableOpacity>

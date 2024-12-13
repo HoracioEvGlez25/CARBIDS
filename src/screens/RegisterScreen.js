@@ -1,221 +1,190 @@
-import React from "react";
-import { MaterialIcons } from "@expo/vector-icons";
-import { Box, Heading, Input, Stack, Divider, FormControl, Icon, Pressable, Radio, Select, CheckIcon, Center, HStack, 
-  Checkbox, Link, Button, VStack, ScrollView, Slider, Text, TextArea, Switch } from "native-base";
-
-function Register() {
-  const [show, setShow] = React.useState(false);
-  const [value, setValue] = React.useState("Hombre");
-  const [service, setService] = React.useState("");
-  const [isChecked, setIsChecked] = React.useState(false);
-  const [age, setAge] = React.useState(10);
-
-  return (
-    <ScrollView w="100%">
-      <Center flex={1}>
-        <Box safeArea w="90%" maxW="290" py="8">
-          <VStack space={3} mt="5">
-            <Heading 
-              size="lg" 
-              fontWeight="600" 
-              color="coolGray.800" 
-              _dark={{ color: "warmGray.50" }}
-            >
-              Register
-            </Heading>
-            
-            <FormControl isRequired>
-              <VStack space={4}>
-                <Input variant="outline" placeholder="Nombre" />
-                <Input variant="outline" placeholder="Apellido" />
-                <Input variant="outline" placeholder="Email" />
-                <Input
-                  type={show ? "text" : "password"}
-                  InputRightElement={
-                    <Pressable onPress={() => setShow(!show)}>
-                      <Icon 
-                        as={<MaterialIcons name={show ? "visibility" : "visibility-off"} />} 
-                        size={5} 
-                        mr="2" 
-                        color="muted.400" 
-                      />
-                    </Pressable>
-                  }
-                  placeholder="Password"
-                />
-                <FormControl.HelperText>
-                  Minimo 8 caracteres.
-                </FormControl.HelperText>
-              </VStack>
-            </FormControl>
-            <Divider/>
-
-            <FormControl isRequired mt="4">
-              <FormControl.Label>Género</FormControl.Label>
-              <Radio.Group 
-                name="myRadioGroup" 
-                accessibilityLabel="Seleccionar género" 
-                value={value} 
-                onChange={setValue}
-              >
-                <VStack space={2}>
-                  <Radio value="Hombre">Hombre</Radio>
-                  <Radio value="Mujer">Mujer</Radio>
-                  <Radio value="Tanque">Tanque Sovietico T90 con blindaje reactivo</Radio>
-                  <Radio value="Gey" isDisabled>Gey</Radio>
-                </VStack>
-              </Radio.Group>
-            </FormControl>
-            <Divider/>
-
-            <FormControl isRequired mt="4">
-              <FormControl.Label>Carrera</FormControl.Label>
-              <Select
-                selectedValue={service}
-                accessibilityLabel="Selecciona Tu Carrera"
-                placeholder="Selecciona Tu Carrera"
-                _selectedItem={{
-                  bg: "teal.600",
-                  endIcon: <CheckIcon size={5} />
-                }}
-                onValueChange={setService}
-              >
-                <Select.Item label="Ingenieria en Tics" value="tics" />
-                <Select.Item label="Ingenieria en Electronica" value="electronica" />
-                <Select.Item label="Ingenieria en Gestion Empresarial" value="gestion" />
-                <Select.Item label="Ingenieria Industrial" value="industrial" />
-                <Select.Item label="Licenciatura Administracion de Empresas" value="admin" />
-              </Select>
-            </FormControl>
-
-            <Divider />
-
-            <FormControl>
-              <FormControl.Label>Edad</FormControl.Label>
-              <Slider defaultValue={18} minValue={10} maxValue={100} step={1} onChange={(v) => setAge(v)}>
-                <Slider.Track>
-                  <Slider.FilledTrack />
-                </Slider.Track>
-                <Slider.Thumb />
-              </Slider>
-              <Text>Edad seleccionada: {age}</Text>
-            </FormControl>
-            <Divider />
-            <FormControl>
-              <FormControl.Label>Sobre tics</FormControl.Label>
-              <TextArea h={20} placeholder="Escribe algo sobre tics"/>
-            </FormControl>
-            <FormControl>
-              <HStack alignItems="center" space={4}>
-                <FormControl.Label>Recibir notificaciones</FormControl.Label>
-                <Switch offTrackColor="indigo.100" onTrackColor="indigo.200" onThumbColor="indigo.500" offThumbColor="indigo.50" />
-              </HStack>
-            </FormControl>
-
-            <HStack space={2} mt="5" alignItems="center">
-              <Checkbox 
-                value="accept" 
-                accessibilityLabel="Acepto los términos y condiciones"
-                onChange={setIsChecked}
-              >
-                I accept the
-              </Checkbox>
-              <Link href="https://es.wikipedia.org/wiki/T-90" isExternal>
-                terms & conditions
-              </Link>
-            </HStack>
-
-            <Button 
-              mt="5" 
-              mb="5"
-              colorScheme="indigo"
-              onPress={() => {
-                console.log("Registro presionado", {
-                  genero: value,
-                  carrera: service,
-                  aceptoTerminos: isChecked
-                });
-              }}
-            >
-              Register
-            </Button>
-          </VStack>
-        </Box>
-      </Center>
-    </ScrollView>
-  );
-}
-
-export default Register;
-
-/*import React, { useState } from 'react';
-import { Text, Image } from 'react-native';
-import { NativeBaseProvider, Box, Heading, VStack, FormControl, HStack, Input, Button, Center, useColorModeValue, useBreakpointValue } from "native-base";
-import { useNavigation } from '@react-navigation/native';
+import React, { useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  TouchableOpacity,
+  ScrollView,
+  Alert,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const RegisterScreen = ({ setIsAuthenticated }) => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const navigation = useNavigation();
+  const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isChecked, setIsChecked] = useState(false);
+  const navigation = useNavigation();
 
-    const bgColor = useColorModeValue('light.background.50', 'dark.background.900');
-    const textColor = useColorModeValue('light.text.50', 'dark.text.50');
+  const handleRegister = () => {
+    if (!name || !surname || !email || !password) {
+      Alert.alert("Error", "Por favor, completa todos los campos");
+      return;
+    }
+    if (!isChecked) {
+      Alert.alert("Error", "Debes aceptar los términos y condiciones");
+      return;
+    }
+    setIsAuthenticated(true);
+    navigation.navigate("MainTab");
+  };
 
-    const flexDir = useBreakpointValue({ base: 'column', lg: 'row' });
-
-    const handleRegister = () => {
-        if (password === confirmPassword) {
-            setIsAuthenticated(true); 
-            navigation.navigate('MainTab'); 
-        } else {
-            alert('Passwords do not match'); 
-        }
-    };
-
-    return (
-        <Center w="100%" bg={bgColor} flex={1}>
-            <Image 
-                source={require('../../assets/icon.png')} 
-                style={{ width: '100%', height: 200, marginBottom: 20 }} 
-                resizeMode="contain"
-            />
-            <Box safeArea p="2" py="8" w="90%" maxW="290">
-                <Heading size="lg" fontWeight="600" color={textColor}>
-                    Welcome
-                </Heading>
-                <Heading mt="1" color={textColor} fontWeight="medium" size="xs">
-                    Sign in to continue!
-                </Heading>
-                <VStack space={3} mt="5" flexDirection={flexDir}>
-                    <FormControl>
-                        <FormControl.Label>Email</FormControl.Label>
-                        <Input value={email} onChangeText={setEmail} />
-                    </FormControl>
-                    <FormControl>
-                        <FormControl.Label>Password</FormControl.Label>
-                        <Input type="password" value={password} onChangeText={setPassword} />
-                    </FormControl>
-                    <FormControl>
-                        <FormControl.Label>Confirm Password</FormControl.Label>
-                        <Input type="password" value={confirmPassword} onChangeText={setConfirmPassword} />
-                    </FormControl>
-                    <Button mt="2" colorScheme="indigo" onPress={handleRegister}>
-                        Register
-                    </Button>
-                    <HStack mt="6" justifyContent="center">
-                        <Text fontSize="sm" ccolor={textColor}>
-                            Already have an account? 
-                            <Button variant="link" colorScheme="indigo" onPress={() => navigation.navigate('Login')}>
-                                Login
-                            </Button>
-                        </Text>
-                    </HStack>
-                </VStack>
-            </Box>
-        </Center>
-    );
+  return (
+    <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.headerText}>Regístrate en CARBIDS</Text>
+        </View>
+        <View style={styles.formContainer}>
+          <Text style={styles.title}>Crea tu cuenta</Text>
+          <TextInput
+            placeholder="Nombre"
+            value={name}
+            onChangeText={setName}
+            style={styles.input}
+            placeholderTextColor="#aaa"
+          />
+          <TextInput
+            placeholder="Apellido"
+            value={surname}
+            onChangeText={setSurname}
+            style={styles.input}
+            placeholderTextColor="#aaa"
+          />
+          <TextInput
+            placeholder="Correo Electrónico"
+            keyboardType="email-address"
+            value={email}
+            onChangeText={setEmail}
+            style={styles.input}
+            placeholderTextColor="#aaa"
+          />
+          <TextInput
+            placeholder="Contraseña"
+            secureTextEntry
+            value={password}
+            onChangeText={setPassword}
+            style={styles.input}
+            placeholderTextColor="#aaa"
+          />
+          <View style={styles.checkboxContainer}>
+            <TouchableOpacity
+              onPress={() => setIsChecked(!isChecked)}
+              style={styles.checkbox}
+            >
+              <Text style={{ color: isChecked ? "#1e90ff" : "#aaa" }}>
+                {isChecked ? "☑" : "☐"}
+              </Text>
+            </TouchableOpacity>
+            <Text style={styles.checkboxText}>
+              Acepto los
+              <Text
+                style={styles.linkText}
+                onPress={() => Alert.alert("Términos y Condiciones")}
+              >
+                {" Términos y Condiciones"}
+              </Text>
+            </Text>
+          </View>
+          <TouchableOpacity style={styles.registerButton} onPress={handleRegister}>
+            <Text style={styles.registerButtonText}>Registrarse</Text>
+          </TouchableOpacity>
+          <View style={styles.linkContainer}>
+            <TouchableOpacity onPress={() => navigation.navigate("LoginScreen")}>
+              <Text style={styles.linkText}>¿Ya tienes una cuenta? Inicia sesión</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+    </ScrollView>
+  );
 };
 
-export default RegisterScreen;*/
+const styles = StyleSheet.create({
+  scrollContainer: {
+    flexGrow: 1,
+  },
+  container: {
+    flex: 1,
+    backgroundColor: "#f8f9fd",
+    alignItems: "center",
+    paddingVertical: 20,
+  },
+  header: {
+    backgroundColor: "#1e90ff",
+    width: "100%",
+    padding: 20,
+    alignItems: "center",
+    borderBottomLeftRadius: 15,
+    borderBottomRightRadius: 15,
+  },
+  headerText: {
+    color: "#fff",
+    fontSize: 22,
+    fontWeight: "bold",
+  },
+  formContainer: {
+    width: "90%",
+    backgroundColor: "#fff",
+    padding: 20,
+    borderRadius: 15,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#333",
+    marginBottom: 15,
+    textAlign: "center",
+  },
+  input: {
+    backgroundColor: "#f0f4f8",
+    borderRadius: 10,
+    padding: 15,
+    fontSize: 16,
+    marginBottom: 15,
+    color: "#333",
+  },
+  checkboxContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 15,
+  },
+  checkbox: {
+    marginRight: 10,
+  },
+  checkboxText: {
+    fontSize: 14,
+    color: "#333",
+  },
+  linkText: {
+    color: "#1e90ff",
+    fontSize: 14,
+    fontWeight: "600",
+    textDecorationLine: "underline",
+  },
+  registerButton: {
+    backgroundColor: "#1e90ff",
+    paddingVertical: 15,
+    borderRadius: 10,
+    alignItems: "center",
+    marginBottom: 10,
+  },
+  registerButtonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  linkContainer: {
+    alignItems: "center",
+    marginTop: 10,
+  },
+});
 
+export default RegisterScreen;
