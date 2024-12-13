@@ -35,7 +35,7 @@ const SellCarScreen = () => {
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.container}>
-        <Text style={styles.title}>Vender Tu Carro</Text>
+        <Text style={styles.title}>Publica tu carro</Text>
 
         <TouchableOpacity style={styles.importButton} onPress={handleImportImage}>
           <Text style={styles.importButtonText}>Subir Imagen</Text>

@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'; 
 import { View, Text, Image, TouchableOpacity, TextInput, StyleSheet, ScrollView, Modal, Button } from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 function DetailsScreen({ route, navigation }) {
     const { title, price, description, image } = route.params || {};
@@ -9,6 +10,7 @@ function DetailsScreen({ route, navigation }) {
     const [isModalVisible, setModalVisible] = useState(false); 
     const [message, setMessage] = useState(''); 
     const [chatHistory, setChatHistory] = useState([]); 
+    const [favorites, setFavorites] = useState([]); // Estado local para manejar favoritos
 
     const handleIncrement = () => {
         const incrementValue = parseInt(incrementInput, 10);
@@ -36,6 +38,12 @@ function DetailsScreen({ route, navigation }) {
         }
     };
 
+    const handleAddToFavorites = () => {
+        const newFavorite = { title, price, description, image };
+        setFavorites((prevFavorites) => [...prevFavorites, newFavorite]);
+        alert(`${title} ha sido añadido a tus favoritos.`);
+    };
+
     if (!title || !price || !description || !image) {
         return <Text>Loading...</Text>;
     }
@@ -44,7 +52,14 @@ function DetailsScreen({ route, navigation }) {
         <ScrollView style={styles.container}>
             <Image source={image} style={styles.image} />
             <View style={styles.detailsContainer}>
-                <Text style={styles.title}>{title}</Text>
+                <View style={styles.headerRow}>
+                    <Text style={styles.title}>{title}</Text>
+                    {/* Botón para añadir a favoritos */}
+                    <TouchableOpacity onPress={handleAddToFavorites}>
+                        <Ionicons name="heart-outline" size={28} color="red" />
+                    </TouchableOpacity>
+                </View>
+
                 <Text style={styles.price}>Precio actual: ${currentPrice.toLocaleString()}</Text>
                 <Text style={styles.description}>{description}</Text>
 
@@ -57,7 +72,7 @@ function DetailsScreen({ route, navigation }) {
                     {/* Componente de reunión */}
                     <TouchableOpacity style={styles.meetingButton} onPress={() => navigation.navigate('ReunionScreen')}>
                         <Text style={styles.meetingText}>Tiempo Restante</Text>
-                        <Text style={styles.meetingTimer}>05:34 minutos</Text>
+                        <Text style={styles.meetingTimer}>02:34 minutos</Text>
                         <Text style={styles.reunionButtonText}>REUNIÓN</Text>
                     </TouchableOpacity>
                 </View>
@@ -71,7 +86,7 @@ function DetailsScreen({ route, navigation }) {
                     onChangeText={setIncrementInput}
                 />
                 <TouchableOpacity style={styles.increaseButton} onPress={handleIncrement}>
-                    <Text style={styles.increaseButtonText}>Aumentar</Text>
+                    <Text style={styles.increaseButtonText}>Hacer puja</Text>
                 </TouchableOpacity>
             </View>
 
@@ -130,11 +145,16 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.1,
         shadowRadius: 4,
     },
+    headerRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: 10,
+    },
     title: {
         fontSize: 24,
         fontWeight: 'bold',
         color: '#333',
-        marginBottom: 10,
     },
     price: {
         fontSize: 20,

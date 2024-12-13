@@ -24,15 +24,16 @@ import AppCustomization from "./src/screens/AppCustomization";
 import DetailsScreen from "./src/screens/DetailsScreen";
 import ReunionScreen from "./src/screens/ReunionScreen";
 import SecurityFormScreen from "./src/screens/SecurityFormScreen";
+import Meetings from "./src/screens/Meetings";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
 
-const MainTab = () => {
+const MainTab = ({ setIsAuthenticated }) => {
   return (
     <Drawer.Navigator
       initialRouteName="Home"
-      screenOptions={{
+      screenOptions={({ navigation }) => ({
         drawerActiveTintColor: "blue",
         drawerInactiveTintColor: "black",
         drawerLabelStyle: { fontSize: 16 },
@@ -40,7 +41,19 @@ const MainTab = () => {
         drawerStyle: {
           backgroundColor: useColorModeValue("#ffffff", "#1a1a1a"),
         },
-      }}
+        headerRight: () => (
+          <Ionicons
+            name="log-out-outline"
+            size={24}
+            color={useColorModeValue("black", "white")}
+            style={{ marginRight: 15 }}
+            onPress={() => {
+              setIsAuthenticated(false); 
+              navigation.replace("LoginScreen"); 
+            }}
+          />
+        ),
+      })}
     >
       <Drawer.Screen
         name="Home"
@@ -96,12 +109,16 @@ const MainTab = () => {
           ),
         }}
       />
-       <Drawer.Screen
+      <Drawer.Screen
         name="SecurityForm"
         component={SecurityFormScreen}
         options={{
           drawerIcon: ({ color, size }) => (
-            <Ionicons name="shield-checkmark-outline" size={size} color={color} />
+            <Ionicons
+              name="shield-checkmark-outline"
+              size={size}
+              color={color}
+            />
           ),
         }}
       />
@@ -134,7 +151,9 @@ const SettingsStack = () => {
       <Stack.Screen name="AppCustomization" component={AppCustomization} />
       <Stack.Screen name="Details" component={DetailsScreen} />
       <Stack.Screen name="ReunionScreen" component={ReunionScreen} />
-      {/* <Stack.Screen name="RegisterScreen" component={RegisterScreen} /> */}
+      {(props) => <ReunionScreen {...props} setMeetings={setMeetings} />}
+      <Stack.Screen name="Meeting" component={Meetings} />
+      {(props) => <Meetings {...props} meetings={meetings} />}
     </Stack.Navigator>
   );
 };
@@ -149,14 +168,16 @@ const App = () => {
           <Box safeAreaTop bg={useColorModeValue("light.background.100", "dark.background.900")}>
             <ToggleDarkMode />
           </Box>
-          <Stack.Navigator initialRouteName={isAuthenticated ? "MainTab" : "Login"}>
+          <Stack.Navigator initialRouteName={isAuthenticated ? "MainTab" : "LoginScreen"}>
             <Stack.Screen name="LoginScreen" options={{ headerShown: false }}>
               {() => <LoginScreen setIsAuthenticated={setIsAuthenticated} />}
             </Stack.Screen>
             <Stack.Screen name="RegisterScreen" options={{ headerShown: false }}>
               {() => <RegisterScreen setIsAuthenticated={setIsAuthenticated} />}
             </Stack.Screen>
-            <Stack.Screen name="MainTab" component={MainTab} options={{ headerShown: false }} />
+            <Stack.Screen name="MainTab" options={{ headerShown: false }}>
+              {() => <MainTab setIsAuthenticated={setIsAuthenticated} />}
+            </Stack.Screen>
             <Stack.Screen name="Details" component={DetailsScreen} />
             <Stack.Screen name="ReunionScreen" component={ReunionScreen} />
           </Stack.Navigator>

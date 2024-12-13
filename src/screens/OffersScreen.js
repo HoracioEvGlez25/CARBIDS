@@ -54,7 +54,7 @@ function OffersScreen({ navigation }) {
                                     })
                                 }
                             >
-                                <Text style={styles.cardButtonText}>Detalles</Text>
+                                <Text style={styles.cardButtonText}>Ver</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
