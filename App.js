@@ -25,6 +25,7 @@ import DetailsScreen from "./src/screens/DetailsScreen";
 import ReunionScreen from "./src/screens/ReunionScreen";
 import SecurityFormScreen from "./src/screens/SecurityFormScreen";
 import Meetings from "./src/screens/Meetings";
+import { AppProvider } from "./src/contexts/favoritosContext";  // Ajusta la ruta aquí
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -48,13 +49,12 @@ const MainTab = ({ setIsAuthenticated }) => {
             color={useColorModeValue("black", "white")}
             style={{ marginRight: 15 }}
             onPress={() => {
-              setIsAuthenticated(false); 
-              navigation.replace("LoginScreen"); 
+              setIsAuthenticated(false);
+              navigation.replace("LoginScreen");
             }}
           />
         ),
-      })}
-    >
+      })}>
       <Drawer.Screen
         name="Home"
         component={HomeScreen}
@@ -151,9 +151,6 @@ const SettingsStack = () => {
       <Stack.Screen name="AppCustomization" component={AppCustomization} />
       <Stack.Screen name="Details" component={DetailsScreen} />
       <Stack.Screen name="ReunionScreen" component={ReunionScreen} />
-      {(props) => <ReunionScreen {...props} setMeetings={setMeetings} />}
-      <Stack.Screen name="Meeting" component={Meetings} />
-      {(props) => <Meetings {...props} meetings={meetings} />}
     </Stack.Navigator>
   );
 };
@@ -162,28 +159,30 @@ const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   return (
-    <NativeBaseProvider theme={theme}>
-      <NavigationContainer>
-        <VStack flex={1} bg={useColorModeValue("light.background.50", "dark.background.900")}>
-          <Box safeAreaTop bg={useColorModeValue("light.background.100", "dark.background.900")}>
-            <ToggleDarkMode />
-          </Box>
-          <Stack.Navigator initialRouteName={isAuthenticated ? "MainTab" : "LoginScreen"}>
-            <Stack.Screen name="LoginScreen" options={{ headerShown: false }}>
-              {() => <LoginScreen setIsAuthenticated={setIsAuthenticated} />}
-            </Stack.Screen>
-            <Stack.Screen name="RegisterScreen" options={{ headerShown: false }}>
-              {() => <RegisterScreen setIsAuthenticated={setIsAuthenticated} />}
-            </Stack.Screen>
-            <Stack.Screen name="MainTab" options={{ headerShown: false }}>
-              {() => <MainTab setIsAuthenticated={setIsAuthenticated} />}
-            </Stack.Screen>
-            <Stack.Screen name="Details" component={DetailsScreen} />
-            <Stack.Screen name="ReunionScreen" component={ReunionScreen} />
-          </Stack.Navigator>
-        </VStack>
-      </NavigationContainer>
-    </NativeBaseProvider>
+    <AppProvider>
+      <NativeBaseProvider theme={theme}>
+        <NavigationContainer>
+          <VStack flex={1} bg={useColorModeValue("light.background.50", "dark.background.900")}>
+            <Box safeAreaTop bg={useColorModeValue("light.background.100", "dark.background.900")}>
+              <ToggleDarkMode />
+            </Box>
+            <Stack.Navigator initialRouteName={isAuthenticated ? "MainTab" : "LoginScreen"}>
+              <Stack.Screen name="LoginScreen" options={{ headerShown: false }}>
+                {() => <LoginScreen setIsAuthenticated={setIsAuthenticated} />}
+              </Stack.Screen>
+              <Stack.Screen name="RegisterScreen" options={{ headerShown: false }}>
+                {() => <RegisterScreen setIsAuthenticated={setIsAuthenticated} />}
+              </Stack.Screen>
+              <Stack.Screen name="MainTab" options={{ headerShown: false }}>
+                {() => <MainTab setIsAuthenticated={setIsAuthenticated} />}
+              </Stack.Screen>
+              <Stack.Screen name="Details" component={DetailsScreen} />
+              <Stack.Screen name="ReunionScreen" component={ReunionScreen} />
+            </Stack.Navigator>
+          </VStack>
+        </NavigationContainer>
+      </NativeBaseProvider>
+    </AppProvider>
   );
 };
 
