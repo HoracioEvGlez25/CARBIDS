@@ -9,17 +9,21 @@ import {
   Alert,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import Modal from "react-native-modal";
 
 const RegisterScreen = ({ setIsAuthenticated }) => {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
+  const [age, setAge] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [numb, setNumb] = useState("");
   const [isChecked, setIsChecked] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false); // State for modal visibility
   const navigation = useNavigation();
 
   const handleRegister = () => {
-    if (!name || !surname || !email || !password) {
+    if (!name || !surname || !age || !email || !password || !numb ) {
       Alert.alert("Error", "Por favor, completa todos los campos");
       return;
     }
@@ -29,6 +33,11 @@ const RegisterScreen = ({ setIsAuthenticated }) => {
     }
     setIsAuthenticated(true);
     navigation.navigate("MainTab");
+  };
+
+  // Toggle modal visibility
+  const toggleModal = () => {
+    setIsModalVisible(!isModalVisible);
   };
 
   return (
@@ -54,6 +63,13 @@ const RegisterScreen = ({ setIsAuthenticated }) => {
             placeholderTextColor="#aaa"
           />
           <TextInput
+            placeholder="Edad"
+            value={age}
+            onChangeText={setAge}
+            style={styles.input}
+            placeholderTextColor="#aaa"
+          />
+          <TextInput
             placeholder="Correo Electrónico"
             keyboardType="email-address"
             value={email}
@@ -66,6 +82,14 @@ const RegisterScreen = ({ setIsAuthenticated }) => {
             secureTextEntry
             value={password}
             onChangeText={setPassword}
+            style={styles.input}
+            placeholderTextColor="#aaa"
+          />
+          <TextInput
+            placeholder="Numero"
+            secureTextEntry
+            value={numb}
+            onChangeText={setNumb}
             style={styles.input}
             placeholderTextColor="#aaa"
           />
@@ -82,7 +106,7 @@ const RegisterScreen = ({ setIsAuthenticated }) => {
               Acepto los
               <Text
                 style={styles.linkText}
-                onPress={() => Alert.alert("Términos y Condiciones")}
+                onPress={toggleModal} // Open modal on click
               >
                 {" Términos y Condiciones"}
               </Text>
@@ -98,6 +122,20 @@ const RegisterScreen = ({ setIsAuthenticated }) => {
           </View>
         </View>
       </View>
+
+      {/* Modal for Terms and Conditions */}
+      <Modal isVisible={isModalVisible} onBackdropPress={toggleModal}>
+        <View style={styles.modalContainer}>
+          <Text style={styles.modalTitle}>Términos y Condiciones</Text>
+          <Text style={styles.modalText}>
+            Aquí van los detalles de los términos y condiciones...
+            Puedes agregar más texto según sea necesario.
+          </Text>
+          <TouchableOpacity onPress={toggleModal} style={styles.closeButton}>
+            <Text style={styles.closeButtonText}>Cerrar</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
     </ScrollView>
   );
 };
@@ -184,6 +222,36 @@ const styles = StyleSheet.create({
   linkContainer: {
     alignItems: "center",
     marginTop: 10,
+  },
+
+  // Modal styles
+  modalContainer: {
+    backgroundColor: "#fff",
+    padding: 20,
+    borderRadius: 15,
+    alignItems: "center",
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#333",
+    marginBottom: 15,
+  },
+  modalText: {
+    fontSize: 16,
+    color: "#333",
+    marginBottom: 15,
+  },
+  closeButton: {
+    backgroundColor: "#1e90ff",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+  },
+  closeButtonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });
 
